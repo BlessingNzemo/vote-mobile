@@ -126,10 +126,10 @@ class _ScancouponpageState extends ConsumerState<ScanCouponPage> {
                 print('valeur scanné');
                 print(element.rawValue);
               });
-              context.goNamed(Urls.phases.name);
-              //var result = data.barcodes.first.rawValue;
-              //controller.stop();
-              //Navigator.pop(context, result);
+              // context.goNamed(Urls.phases.name);
+              var result = data.barcodes.first.rawValue;
+              controller.stop();
+              Navigator.pop(context, result);
             },
             errorBuilder: (context, error, child) {
               return ScannerErrorWidget(error: error);

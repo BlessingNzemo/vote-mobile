@@ -120,24 +120,6 @@ class _VotePageState3 extends ConsumerState<VotePage3> {
                   size: 100,
                   color: Colors.black,
                 ),
-                Positioned(
-                  top: 10,
-                  right: 0,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Text(
-                      '${state.criteres.length.toString()}criteres',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      ),
-                    ),
-                  ),
-                ),
               ],
             ), // Space between the icon and the email text
           ),
@@ -152,6 +134,7 @@ class _VotePageState3 extends ConsumerState<VotePage3> {
         ? Colors.white.withOpacity(0.9)
         : Colors.black.withOpacity(0.1);
     var state = ref.watch(voteCtrlProvider);
+    var state2= ref.watch(intervenantCtrlProvider);
     return Center(
       child: Container(
         margin: EdgeInsets.all(10),
@@ -165,6 +148,7 @@ class _VotePageState3 extends ConsumerState<VotePage3> {
               itemCount: state.criteres.length,
               itemBuilder: (BuildContext context, int index) {
                 var critere = state.criteres[index].critere;
+                var intervenant = state2.intervenants[index].isDone;
                 print(critere.toJson());
                 var savedValue = state.valeurs["${critere.id}"] ?? 0.0;
                 bool isDarkTheme = Theme.of(context).brightness == Brightness.dark;
@@ -202,6 +186,7 @@ class _VotePageState3 extends ConsumerState<VotePage3> {
                       Card(
                         child: CustomSlider(
                           title: '',
+                          isEnabled: intervenant?false:true,
                           onSliderChanged: (value) {
                             var ctrl = ref.read(voteCtrlProvider.notifier);
                             ctrl.onSliderChanged(
@@ -269,9 +254,10 @@ class _VotePageState3 extends ConsumerState<VotePage3> {
   }
   _SubmitButton(BuildContext context, WidgetRef ref) {
     var state = ref.watch(voteCtrlProvider);
+    var state2 = ref.watch(intervenantCtrlProvider);
     bool allSlidersMoved = state.criteres.every((critere) => state.valeurs["${critere.critere.id}"] != null && state.valeurs["${critere.critere.id}"]! > 0);
     return Visibility(
-      visible: allSlidersMoved,
+      visible: !state2.isDone && allSlidersMoved,
       child: Align(
         alignment: Alignment.bottomCenter,
         child: Container(

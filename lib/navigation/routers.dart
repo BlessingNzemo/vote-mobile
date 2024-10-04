@@ -43,7 +43,7 @@ GoRouter router(RouterRef ref) {
         GoRoute(
           path: "/home",
           name: Urls.home.name,
-          builder: (ctx, state) => LoginPage(),
+          builder: (ctx, state) => PhasePageTest(),
           routes: <RouteBase>[
             GoRoute(
                 path: 'test',
@@ -65,13 +65,13 @@ GoRouter router(RouterRef ref) {
                 final phaseId = int.tryParse(phaseIdStr) ?? -1;
                 var intervenantIdStr=state.pathParameters["intervenantId"]?? '-1';
                 final intervenantId = int.tryParse(intervenantIdStr) ?? -1;
-                return MaterialPage(key: state.pageKey, child: VotePage3(phaseId: phaseId,phaseIntervenantId: intervenantId));
+                return MaterialPage(key: state.pageKey, child: VotePage2(phaseId: phaseId,phaseIntervenantId: intervenantId));
               },),
             GoRoute(
               path: "phases",
               name: Urls.phases.name,
               pageBuilder: (ctx, state) {
-                return MaterialPage(key: state.pageKey, child: PhasePage2());
+                return MaterialPage(key: state.pageKey, child: PhasePageTest());
               },
             ),
             GoRoute(
@@ -80,7 +80,7 @@ GoRouter router(RouterRef ref) {
               pageBuilder: (ctx, state) {
                 var id=state.pathParameters["id"]?? '-1';
                 final phaseId = int.tryParse(id) ?? -1;
-                return MaterialPage(key: state.pageKey, child: IntervenantPage3(phaseId: phaseId,));
+                return MaterialPage(key: state.pageKey, child: IntervenantPage2(phaseId: phaseId,));
 
 
               },
