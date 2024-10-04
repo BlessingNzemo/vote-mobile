@@ -230,4 +230,16 @@ class EvaluationLocalServiceNathImpl implements EvaluationLocalService {
     // TODO: implement saveIntervenant
     throw UnimplementedError();
   }
+
+  @override
+  Future<bool> disconnect() {
+    // TODO: implement disconnect
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> resetVoteValue() {
+    // TODO: implement resetVoteValue
+    throw UnimplementedError();
+  }
 }
