@@ -111,23 +111,17 @@ class _PhasePageTestState extends ConsumerState<PhasePageTest> {
                       child: Image.asset("images/x.png"),
                     ),
                   ),
-                  Positioned.fill(
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(
-                        sigmaX: 0.9,
-                        sigmaY: 0.9,
-                      ),
-                      child: SizedBox(),
-                    ),
-                  ),
-                  Container(
-                      margin:AppSize.screenHeight > 900 ? EdgeInsets.only(top: 200, left: 10, right: 10) : EdgeInsets.only(top: 90,  left: 50, right: 50),
-                      padding: EdgeInsets.all(100),
-                      width: AppSize.screenWidth ,
 
+                  Container(
+                    margin: EdgeInsets.only(top: 250, left: 10, right: 10),
+                      padding: EdgeInsets.all(10),
+                      width: AppSize.screenWidth ,
+                      decoration: BoxDecoration(
+                        color: loadingColor,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       child:
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text("${phase?.phase?.nom}",
                               style: TextStyle(
@@ -145,16 +139,19 @@ class _PhasePageTestState extends ConsumerState<PhasePageTest> {
                           ),
                           const SizedBox(height: 16,),
                           Container(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                              child: Column(
                                 children: [
                                   SizedBox(
                                     width: 8,
                                   ),
                                   Container(
-                                    child: Row(
-                                      children: [
-                                        TextButton(
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.orange,
+                                            foregroundColor: Colors.white,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                                          ),
                                           onPressed: () {
                                             context.goNamed(Urls.intervenants.name,
                                               extra: phase,
@@ -169,13 +166,6 @@ class _PhasePageTestState extends ConsumerState<PhasePageTest> {
                                                 color: Colors.white),
                                           ),
                                         ),
-                                        Icon(CupertinoIcons.arrow_right, color: Colors.white,),
-                                      ],
-                                    ),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Color(0xffFF7900),
-                                    ),
                                   ),
                                 ],
                               )
