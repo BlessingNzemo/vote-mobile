@@ -111,12 +111,11 @@ class _IntroPageState extends ConsumerState<IntroPage3> {
                       // ),
                       _boutonVote(),
                       SizedBox(
-                        height: 15,
+                        height: 2,
                       ),
                       // ElevatedButton(
                       //   onPressed: () {},
 
-                      SizedBox(height: 10),
                       _boutonEvaluation()
                     ],
                   ),
@@ -228,7 +227,7 @@ class _IntroPageState extends ConsumerState<IntroPage3> {
                 if (result != null) {
                   //print("result dans login $result");
                   var ctrl = ref.read(introCtrlProvider.notifier);
-                  var res = await ctrl.soumettre("coupon");
+                  var res = await ctrl.soumettre(result);
                   if (res == null) {
                     context.pushNamed(Urls.phases.name);
                   } else {

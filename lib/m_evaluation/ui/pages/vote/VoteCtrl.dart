@@ -39,7 +39,7 @@ class VoteCtrl extends _$VoteCtrl {
     // print("$critereId : valeur $value");
     // print(value.runtimeType);
     print("intervenantID: $intervenantId ===> valeurs 1 $valeurs");
-    state = state.copywith(valeurs: valeurs);
+    state = state.copywith(valeurs: valeurs, criteres: state.criteres);
     var useCase = ref
         .watch(evaluationInteractorProvider)
         .saveVoteLocalUseCase;

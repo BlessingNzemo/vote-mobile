@@ -76,13 +76,17 @@ class _PhasePageTestState extends ConsumerState<PhasePageTest> {
           children: [
             _contenuPrincipale(context, ref),
             // _chargement(context, ref),
-            _buttonAction(context,ref)
+            // _buttonAction(context,ref)
           ],
         ),
       ),
     );
   }
   _contenuPrincipale(BuildContext context, WidgetRef ref) {
+    bool isDarkTheme = Theme
+        .of(context)
+        .brightness == Brightness.dark;
+    Color loadingColor = isDarkTheme ? Colors.white.withOpacity(0.9) : Colors.black.withOpacity(0.1);
     var state = ref.watch(phaseCtrlProvider);
     var phase = state.phasename;
     return Container(
@@ -94,50 +98,92 @@ class _PhasePageTestState extends ConsumerState<PhasePageTest> {
               child: Stack(
                 children: [
                   Container(
-                    margin: EdgeInsets.fromLTRB(135, 10, 0, 0),
-                    width: 300,
-                    height: 200,
-                    child: Center(
+                    height: AppSize.screenHeight - 175,
+                    width: AppSize.screenWidth ,
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
                       child: Image.asset("images/x.png"),
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.fromLTRB(0.0, 180.0, 0.0, 0.0),
-                    width: 600,
-                    height: 750,
-                    child: Center(
+                    child: Align(
+                      alignment: Alignment.topCenter,
                       child: Image.asset("images/x.png"),
                     ),
                   ),
-
-                  SafeArea(
-                      child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 30.0, vertical: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 260,
-                          child: Column(
-                            children: [
-                              Text(
-                                "${phase?.phase?.nom}",
-                                style: TextStyle(
-                                    fontSize: 70,
-                                    fontFamily: "Poppins",
-                                    height: 1.2),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 16,),
-                         Text(
-                           "${phase?.phase?.description}",
-                            style: TextStyle()),
-                      ],
+                  Positioned.fill(
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(
+                        sigmaX: 0.9,
+                        sigmaY: 0.9,
+                      ),
+                      child: SizedBox(),
                     ),
-                  ))
+                  ),
+                  Container(
+                      margin:AppSize.screenHeight > 900 ? EdgeInsets.only(top: 200, left: 10, right: 10) : EdgeInsets.only(top: 90,  left: 50, right: 50),
+                      padding: EdgeInsets.all(100),
+                      width: AppSize.screenWidth ,
+
+                      child:
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text("${phase?.phase?.nom}",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 30,
+                                  fontFamily: "Poppins",
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.1)
+                          ),
+                          const SizedBox(height: 16,),
+                          Text("${phase?.phase?.description}",
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                          ),
+                          const SizedBox(height: 16,),
+                          Container(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Container(
+                                    child: Row(
+                                      children: [
+                                        TextButton(
+                                          onPressed: () {
+                                            context.goNamed(Urls.intervenants.name,
+                                              extra: phase,
+                                              pathParameters: {
+                                                "id": phase!.phase!.id.toString()
+                                              },
+                                            );
+                                          },
+                                          child: Text(
+                                            "Commencer le vote ",
+                                            style: TextStyle(fontWeight: FontWeight.w600,
+                                                color: Colors.white),
+                                          ),
+                                        ),
+                                        Icon(CupertinoIcons.arrow_right, color: Colors.white,),
+                                      ],
+                                    ),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Color(0xffFF7900),
+                                    ),
+                                  ),
+                                ],
+                              )
+                          )
+                        ],
+                      )
+
+                  ),
                 ],
               ),
             )
@@ -150,7 +196,6 @@ class _PhasePageTestState extends ConsumerState<PhasePageTest> {
     var state = ref.watch(phaseCtrlProvider);
     var phase = state.phasename;
     return Container(
-      margin:EdgeInsets.fromLTRB(0.0, 700, 0.0, 0.0),
       child: SizedBox(
         height: 60,
         width: 250,
