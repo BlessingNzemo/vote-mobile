@@ -244,7 +244,7 @@ class _AuthPageState extends ConsumerState<AuthPage3> {
               if (result == null) {
                 context.goNamed(Urls.introEvaluation.name);
               } else {
-                afficherMessageErreur(context, "Email ou Coupon incorrect");
+                afficherMessageErreur(context, result);
               }
             },
             child: Text("Valider",
